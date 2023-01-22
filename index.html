@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Media Player Title</h1>
+    </header>
+    <main>
+        <div class="album_art__full">
+            <img src="#" alt="full album art" />
+            <button id="btnShuffle" title="shuffle"><i class="material-symbols-rounded">shuffle</i></button>
+        </div>
+        <ul class="playlist">
+            <li class="track__item">
+                <div class="track__thumb">
+                    <img src="#" alt="artist album art thumbnail" />
+                </div>
+                <div class="track__details">
+                    <p class="track__title">Song Title</p>
+                    <p class="track__artist">Song Artist</p>
+                </div>
+                    <div class="track__time">
+                    <time datetime="">00:00</time>
+                </div>
+            </li>
+        </ul>
+    </main>
+    <section class="progress">
+        <div class="played"></div>
+    </section>
+    <footer>
+        <div class="controls">
+            <button id="btnPrev" title="previous track"><i class="material-symbols-rounded">skip_previous</i></button>
+            <button id="btnPlay" title="play | pause"><i class="material-symbols-rounded">play_arrow</i></button>
+            <button id="btnNext" title="next track"><i class="material-symbols-rounded">skip_next</i></button>
+        </div>
+        <div class="times">
+            <time datetime="" class="current-time">00:00</time> &nbsp;|&nbsp;
+            <time datetime="" class="total-time">00:00</time>
+        </div>
+    </footer>
+</body>
+</html>
