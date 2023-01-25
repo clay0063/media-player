@@ -1,6 +1,6 @@
 const MEDIA = [
     {
-        artist: 'MASTER BOOT RECORD',
+        artist: 'Master Boot Record',
         title: '80386',
         track: '80386.mp3',
         thumbnail: 'personal-computer-thumb.jpeg',
@@ -28,7 +28,7 @@ const MEDIA = [
         large: 'milk-tank.jpeg',
     },
     {
-        artist: 'MIRINN',
+        artist: 'Mirinn',
         title: 'ステラグロウ',
         track: 'stella-glow.mp3',
         thumbnail: 'mirinn-thumb.jpeg',
@@ -36,7 +36,7 @@ const MEDIA = [
     },
     {
         artist: 'Jack Goldstein',
-        title: 'SAILIN',
+        title: 'Sailin',
         track: 'sailin.mp3',
         thumbnail: 'world-is-ending-thumb.jpeg',
         large: 'world-is-ending.jpeg',
