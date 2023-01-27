@@ -10,6 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&family=Slackey&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/xpn8ulp.css">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' ;
+        font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com https://use.typekit.net/ ;
+        style-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com https://use.typekit.net/ ;
+    "/>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
@@ -18,8 +23,8 @@
 <body>
     <header>
         <h1>Media Player</h1>
-      </header>
-      <div class="main-wrapper grid animation">
+    </header>
+      <div class="main-wrapper grid">
             <div class="container__playing container">
                 <div class="album_art__full">
                     <img src="./img/air-guitar.jpeg" alt="full album art" class="pulse"/>

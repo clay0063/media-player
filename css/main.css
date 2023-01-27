@@ -185,12 +185,12 @@ footer {
 /* Icons */
 .material-icons-round {
     font-family: 'Material Icons Round';
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 
 .material-icons-round.xl {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 button {
@@ -203,7 +203,6 @@ button {
 
 .controls button {
     margin-right: .75rem;
-    padding: 0 1em;
 }
 
 button:hover, button:focus {
@@ -229,7 +228,7 @@ button:active {
 }
 
 .times {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     font-weight: bold;
 }
 
@@ -265,10 +264,30 @@ button:active {
         font-size: 1rem;
     }
 
+    .controls button {
+        padding: 0 1em;
+    }
+
+    .times {
+        font-size: 1.5rem;
+    }
+
+    .material-icons-round {
+        font-size: 2.5rem;
+    }
+    
+    
+    .material-icons-round.xl {
+        font-size: 3.5rem;
+    }
+
 }
 
 @media only screen and (min-width: 60em) {
 
+    .times {
+        font-size: 1.75rem;
+    }
 
     body {
         padding: 0 4rem;
@@ -278,12 +297,22 @@ button:active {
         font-size: 1.15rem;
     }
 
+    .material-icons-round {
+        font-size: 3rem;
+    }
+    
+    
+    .material-icons-round.xl {
+        font-size: 4rem;
+    }
+
 }
 
-/* Animations when music is playing */
+/* Animations when music is playing,
+Turned off for now */
 .pulse {
-    animation: pulse 1s infinite;
-    box-shadow: 0px 0px 10px var(--accent-color);
+    /* animation: pulse 1s infinite; */
+    /* box-shadow: 0px 0px 10px var(--accent-color); */
 }
 
 @keyframes pulse {
@@ -297,9 +326,13 @@ button:active {
     }
 
     50% {
-        transform: scale(1.025);
+        transform: scale(1.03);
         box-shadow: 0px 0px 10px var(--accent-color);
-    }
+        -webkit-transform: scale(1.03);
+        -moz-transform: scale(1.03);
+        -ms-transform: scale(1.03);
+        -o-transform: scale(1.03);
+}
 
     75% {
         transform:scale(.95);
