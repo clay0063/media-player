@@ -1,10 +1,16 @@
 :root {
-    --main-color: hsl(210, 10%, 30%);
-    --main-color-dark: hsl(230, 10%, 30%);
-    --main-color-light: hsl(190, 10%, 30%);
-    --secondary-color: hsl(170, 20%, 45%);
-    --secondary-color-light: hsl(170, 20%, 65%);
-    --accent-color: hsl(58, 53%, 77%);
+    --main-color: #f5f5f5;
+    --main-color-dark: #4e4e4e;
+    --main-color-mid: #8d8d8d;
+    --main-color-light: #fefefe;
+    --secondary-color-dark: hsl(170, 20%, 45%);
+    --secondary-color: hsl(170, 20%, 65%);
+    --accent-color: hsl(58, 79%, 74%);
+}
+
+@font-face {
+    font-family: "IchijoLaura";
+    src: url("../fonts/IchijoLaura.otf");
 }
 
 /* Header */
@@ -13,9 +19,7 @@ h1 {
     font-size: clamp(1.5rem, 8vw, 2.5rem);
     display: inline-block;
     margin: 0;
-    /* padding: 0 1rem; */
-    /* background-color: yellow; */
-    background-image: linear-gradient(to right, rgb(203, 255, 15) 100%, transparent 100%);
+    background-image: linear-gradient(to right, var(--accent-color) 100%, transparent 100%);
     background-position: 0px .85em;
     background-repeat: repeat-x;
     background-size: 1em 0.5em;
@@ -23,21 +27,17 @@ h1 {
 
 body {
     text-align: center;
-    max-height: 100%;
-    font-family: "Klee One";
+    font-family: "Klee One", "IchijoLaura", sans-serif;
+    background-color: var(--secondary-color);
 }
 
 /* Main Container */
 .main-wrapper {
-    background-color: whitesmoke;
+    background-color: var(--main-color);
     border: 4px solid var(--main-color-dark);
     border-radius: 4px;
-    box-shadow: .5rem .5rem var(--secondary-color);
-    margin: 1rem;
-}
-
-main {
-    overflow: hidden;
+    box-shadow: .35rem .35rem var(--secondary-color-dark);
+    margin: .5rem 1rem 1rem 1rem;
 }
 
 .container {
@@ -70,11 +70,14 @@ main {
 /* Main section styles */
 .album_art__full img {
     margin: auto;
+    margin-bottom: 1rem;
+    border: 2px dotted black;
 }
 
 .wrapper__playlist {
-    background-color: white;
+    background-color: var(--main-color-light);
     overflow-y: scroll;
+    overflow-x: hidden;
     height: 400px;
     padding: 0;
     margin: 1rem;
@@ -87,9 +90,11 @@ footer {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-grow: 1;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
 }
 
 /* Playlist Styles */
@@ -104,7 +109,7 @@ footer {
 }
 
 .track__item {
-    background-color: white;
+    background-color: var(--main-color-light);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -145,7 +150,7 @@ footer {
 }
 
 .track__artist {
-    color:slategray;
+    color:var(--main-color-mid);
 }
 
 /* Scrollbar */
@@ -160,53 +165,103 @@ footer {
     background-color: var(--secondary-color);
 }
 .wrapper__playlist::-webkit-scrollbar-thumb:hover {
-    background-color: var(--secondary-color-light);
+    background-color: var(--secondary-color-dark);
 }
 
 /* Icons */
-.material-icons {
-    font-family: 'Material Icons';
+.material-icons-round {
+    font-family: 'Material Icons Round';
     font-size: 3rem;
 }
 
-.material-icons.xl {
-    font-size: 5rem;
+
+.material-icons-round.xl {
+    font-size: 4rem;
 }
 
 button {
-    background-color: transparent;
-    border: 0;
+    background-color: var(--main-color-light);
+    border: 3px solid var(--main-color-dark);
+    border-radius: 3px;
+    padding: 0 .25em;
+    box-shadow: .35rem .35rem var(--secondary-color-dark);
+}
+
+.controls button {
+    margin-right: .75rem;
+    padding: 0 1em;
+}
+
+button:hover, button:focus {
+    background-color: var(--main-color);
+}
+
+button:active {
+    background-color: var(--main-color);
+    transform: translate(.35rem, .35rem);
+    box-shadow: inset 2px 2px 6px var(--main-color-dark);
+}
+
+.progress {
+    width: 100%;
+    height: 10px;
+    background-color: var(--accent-color);
+}
+
+.played {
+    background-color: var(--secondary-color);
+    width: 10px;
+    height: 100%;
+}
+
+.times {
+    font-size: 1.75rem;
+    font-weight: bold;
 }
 
 @media only screen and (min-width: 50em) {
     .grid {
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: max-content;
         grid-template-areas:
         "a b"
         "c c"
     }
 
     .album_art__full img {
-        max-height: 600px;
+        max-height: 550px;
         width: auto;
     }
 
     .container__playlist {
-        position: relative;
+        display: flex;
+        flex-direction: column;
     }
 
     .wrapper__playlist {
-        position:absolute;
-        top: 1px;
-        bottom: 1px;
-        left: 1px;
-        right: 1px;
-        height: auto;
-        overflow-y: scroll;
+        flex-grow: 1;
+        flex-basis: 0;
     }
 
-    main {
-        max-height: 80vh;
+    body {
+        padding: 0 2rem;
     }
-    
+
+    .track__title {
+        font-size: 1rem;
+    }
+
+}
+
+@media only screen and (min-width: 60em) {
+
+
+    body {
+        padding: 0 4rem;
+    }
+
+    .track__title {
+        font-size: 1.15rem;
+    }
+
 }
