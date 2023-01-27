@@ -18,7 +18,7 @@
 /* Header */
 h1 {
     font-family: "Slackey";
-    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    font-size: clamp(1.563rem, 8vw, 2.441rem);
     display: inline-block;
     margin: 0;
     background-image: linear-gradient(to right, var(--accent-color) 100%, transparent 100%);
@@ -118,7 +118,7 @@ footer {
 }
 
 .playlist .active .track__title {
-    text-decoration: red wavy underline;
+    text-decoration: var(--main-color-dark) wavy underline;
 }
 
 .track__item {
@@ -132,6 +132,10 @@ footer {
 
 .track__item:last-child {
     border-bottom: none;
+}
+
+.track__item:hover {
+    background-color: var(--main-color);
 }
 
 .track__thumb {
@@ -153,7 +157,6 @@ footer {
 
 .track__title {
     font-weight: bolder;
-    font-size: 1.15rem;
 }
 
 .track__time {
@@ -185,12 +188,12 @@ footer {
 /* Icons */
 .material-icons-round {
     font-family: 'Material Icons Round';
-    font-size: 2rem;
+    font-size: 1.953rem;
 }
 
 
 .material-icons-round.xl {
-    font-size: 3rem;
+    font-size: 2.441rem;
 }
 
 button {
@@ -269,7 +272,7 @@ button:active {
     }
 
     .times {
-        font-size: 1.5rem;
+        font-size: 1.563rem;
     }
 
     .material-icons-round {
@@ -293,23 +296,19 @@ button:active {
         padding: 0 4rem;
     }
 
-    .track__title {
-        font-size: 1.15rem;
-    }
-
     .material-icons-round {
-        font-size: 3rem;
+        font-size: 2.441rem;
     }
     
     
     .material-icons-round.xl {
-        font-size: 4rem;
+        font-size: 3.052rem;
     }
 
 }
 
-/* Animations when music is playing,
-Turned off for now */
+/*---- Animations when music is playing,
+Turned off for now -----*/
 
 /* .pulse {
     animation: pulse 1s infinite;
