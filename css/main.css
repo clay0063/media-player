@@ -1,11 +1,13 @@
 :root {
     --main-color: #f5f5f5;
     --main-color-dark: #4e4e4e;
-    --main-color-mid: #8d8d8d;
+    --main-color-mid: #656565;
     --main-color-light: #fefefe;
     --secondary-color-dark: hsl(170, 20%, 45%);
     --secondary-color: hsl(170, 20%, 65%);
+    --secondary-color-clear: hsl(170, 20%, 65%, 65%);
     --accent-color: hsl(58, 79%, 74%);
+    --accent-color-clear: hsl(58, 79%, 74%, 65%);
 }
 
 @font-face {
@@ -105,7 +107,18 @@ footer {
     display: flex;
     flex-direction: column;
     margin-bottom: 0;
-    padding: 0 .25rem;
+}
+
+.playlist .active {
+    background-image: linear-gradient(to right, var(--secondary-color-clear) 8%, var(--accent-color-clear) 40%, transparent 95%);
+}
+
+.playlist .active img {
+    box-shadow: 2px 2px var(--main-color-dark);
+}
+
+.playlist .active .track__title {
+    text-decoration: red wavy underline;
 }
 
 .track__item {
@@ -114,6 +127,7 @@ footer {
     flex-direction: row;
     justify-content: space-between;
     border-bottom: 2px dotted black;
+    padding: 0 .75rem;
 }
 
 .track__item:last-child {
@@ -264,4 +278,35 @@ button:active {
         font-size: 1.15rem;
     }
 
+}
+
+/* Animations when music is playing */
+.pulse {
+    animation: pulse 1s infinite;
+    box-shadow: 0px 0px 10px var(--accent-color);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    
+    25% {
+        transform: scale(.95);
+        box-shadow: 0px 0px 20px var(--accent-color);
+    }
+
+    50% {
+        transform: scale(1.025);
+        box-shadow: 0px 0px 10px var(--accent-color);
+    }
+
+    75% {
+        transform:scale(.95);
+        box-shadow: 0px 0px 20px var(--accent-color);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
