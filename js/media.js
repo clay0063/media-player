@@ -16,7 +16,7 @@ const MEDIA = [
     {
         artist: 'Sobs',
         title: 'LOML',
-        track: 'LOML.mp3',
+        track: 'loml.mp3',
         thumbnail: 'air-guitar-thumb.jpeg',
         large: 'air-guitar.jpeg',
     },
