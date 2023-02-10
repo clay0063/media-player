@@ -127,23 +127,38 @@ const APP = {
 
   errorHandler: (err) => {
     console.warn(`Error code: ${err.target.error.code} | Error message: ${err.target.error.message}`)
+    
+    const warning = document.getElementsByClassName('warning')[0];
+    const p = warning.getElementsByTagName('p')[0];
+    
+    warning.addEventListener('click', (ev)=>{
+      ev.preventDefault();
+      warning.classList.add("hidden");
+    }, {once: true});
+    
     switch (err.target.error.code) {
       case 1:
-        window.alert(`User has cancelled fetching this track's audio.`);
+        // window.alert(`User has cancelled fetching this track's audio.`);
+        p.innerHTML = `User has cancelled fetching this track's audio.`;
         break;
-
+        
       case 2:
-        window.alert(`An error has occurred while downloading - check network connection.`);
+        // window.alert(`An error has occurred while downloading - check network connection.`);
+        p.innerHTML = `An error has occurred while downloading - check network connection.`;
         break;
-
+        
       case 3:
-        window.alert(`An error has occurred while decoding this track's file.`);
+        // window.alert(`An error has occurred while decoding this track's file.`);
+        p.innerHTML = `An error has occurred while decoding this track's file.`;
         break;
-
+          
       case 4:
-        window.alert(`This track's file is not supported or cannot be found.`);
+        // window.alert(`This track's file is not supported or cannot be found.`);
+        p.innerHTML = `This track's file is not supported or cannot be found.`
         break;
     }
+    
+    warning.classList.remove('hidden');
   }
 };
 

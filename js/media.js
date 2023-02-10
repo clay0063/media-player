@@ -2,7 +2,7 @@ const MEDIA = [
     {
         artist: 'Master Boot Record',
         title: '80386',
-        track: '80386.mp3',
+        track: '0386.mp3',
         thumbnail: 'personal-computer-thumb.jpg',
         large: 'personal-computer.jpeg',
     },
