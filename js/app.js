@@ -12,23 +12,40 @@ const APP = {
   },
   addListeners: () => {
     //add event listeners for interface elements
-    const playBtn = document.getElementById('btnPlay');
-    
-    playBtn.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        const txt = playBtn.textContent;
+    const controls = document.getElementsByClassName('controls')[0];
+    controls.addEventListener('click', (ev)=>{
+      switch (ev.target.innerText) {
+        case "play_arrow":
+          APP.audio.play();
+          break;
+
+        case "pause":
+          APP.audio.pause();
+          break;
+
+        case "skip_previous":
+          break;
+
+        case "skip_next":
+          break;
+          
+        default:
+          break;
+      }
+    })
+    // const playBtn = document.getElementById('btnPlay');
+    // playBtn.addEventListener('click', (ev) => {
+    //     ev.preventDefault();
+    //     ev.stopPropagation();
+    //     const txt = playBtn.textContent;
         
-        if (txt === 'play_arrow') {
-            APP.play();
-            console.log('pressed');
-            playBtn.innerHTML = `<i class="material-icons-round">pause</i>`
-        } else {
-            console.log('pressed');
-            APP.pause();
-            playBtn.innerHTML = `<i class="material-icons-round">play_arrow</i>`
-        }
-    });
+    //     if (txt === 'play_arrow') {
+    //         APP.audio.play();
+            
+    //     } else {
+    //         APP.audio.pause();
+    //     }
+    // });
     //add event listeners for APP.audio
 
     // APP.audio.addEventListener('ended', APP.ended);
@@ -37,8 +54,8 @@ const APP = {
     // APP.audio.addEventListener('canplay', APP.canplay);
     // APP.audio.addEventListener('durationchange', APP.durationchange);
     APP.audio.addEventListener('timeupdate', APP.convertTimeDisplay);
-    // APP.audio.addEventListener('play', APP.play);
-    // APP.audio.addEventListener('pause', APP.pause);
+    APP.audio.addEventListener('play', APP.play);
+    APP.audio.addEventListener('pause', APP.pause);
     APP.audio.addEventListener('error', APP.errorHandler);
 
   },
@@ -96,17 +113,19 @@ const APP = {
 
   play: () => {
     //start the track loaded into APP.audio playing
-    if (APP.audio.src){
-        APP.audio.play();
-    } else {
-        console.warn('Nothing loaded yet');
-    }
+    document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">pause</i>`
+    // if (APP.audio.src){
+    //     APP.audio.play();
+    // } else {
+    //     console.warn('Nothing loaded yet');
+    // }
   },
   pause: () => {
     //pause the track loaded into APP.audio playing
-    if (APP.audio){
-        APP.audio.pause();
-    }
+    document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">play_arrow</i>`
+    // if (APP.audio){
+    //     APP.audio.pause();
+    // }
   },
   convertTimeDisplay: () => {
     let time = APP.audio.currentTime;
@@ -122,7 +141,24 @@ const APP = {
   },
 
   errorHandler: (err) => {
-    console.warn(err);
+    console.warn(`Error code: ${err.target.error.code} | Error message: ${err.target.error.message}`)
+    switch (err.target.error.code) {
+      case 1:
+        window.alert(`User has cancelled fetching this track's audio.`);
+        break;
+
+      case 2:
+        window.alert(`An error has occurred while downloading - check network connection.`);
+        break;
+
+      case 3:
+        window.alert(`An error has occurred while decoding this track's file.`);
+        break;
+
+      case 4:
+        window.alert(`This track's file is not supported or cannot be found.`);
+        break;
+    }
   }
 };
 

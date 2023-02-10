@@ -343,3 +343,8 @@ Turned off for now -----*/
         transform: scale(1);
     }
 }
+
+.warning p {
+    color: firebrick;
+    margin-bottom: 1rem;
+}
