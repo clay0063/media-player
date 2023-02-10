@@ -9,11 +9,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Slackey&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Round" rel="stylesheet">
-    <!-- <meta http-equiv="Content-Security-Policy" content="
+    <meta http-equiv="Content-Security-Policy" content="
         default-src 'self' ;
-        font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com ;
-        style-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com ;
-    "/> -->
+        font-src 'self' https://fonts.gstatic.com ;
+        style-src 'self' https://fonts.googleapis.com ;
+        img-src 'self' ;
+        style-src 'self' ;
+        media-src 'self' ;
+    "/>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
@@ -22,134 +25,32 @@
     <title>Media Player</title>
 </head>
 <body>
-    <header>
-        <h1>Media Player</h1>
+  <header>
+      <h1>Media Player v2.0</h1>
     </header>
-      <div class="main-wrapper grid">
-            <div class="container__playing container">
-                <div class="album_art__full">
-                    <img src="./img/personal-computer.jpeg" alt="full album art" class="pulse"/>
-                    <button id="btnShuffle" title="shuffle"><i class="material-icons-round">shuffle</i></button>
-                </div>
-            </div>
-            <div class="container__playlist">
-                <div class="wrapper__playlist">
-                    <ul class="playlist">
-                        <!-- <li class="track__item active">
-                            <div class="track__thumb">
-                                <img src="./img/air-guitar-thumb.jpg" alt="artist album art thumbnail" />
-                            </div>
-                            <div class="track__details">
-                                <p class="track__title">LOML</p>
-                                <p class="track__artist">Sobs</p>
-                            </div>
-                                <div class="track__time">
-                                <time datetime="">04:33</time>
-                            </div>
-                        </li>
-                        <li class="track__item">
-                            <div class="track__thumb">
-                                <img src="./img/diamante-thumb.jpg" alt="artist album art thumbnail" />
-                            </div>
-                            <div class="track__details">
-                                <p class="track__title">Diamante</p>
-                                <p class="track__artist">Baiuca & Alba Reche</p>
-                            </div>
-                                <div class="track__time">
-                                <time datetime="">03:12</time>
-                            </div>
-                        </li>
-                        <li class="track__item">
-                            <div class="track__thumb">
-                                <img src="./img/milk-tank-thumb.jpg" alt="artist album art thumbnail" />
-                            </div>
-                            <div class="track__details">
-                                <p class="track__title">Plastic New York</p>
-                                <p class="track__artist">Milk Tank</p>
-                            </div>
-                                <div class="track__time">
-                                <time datetime="">03:11</time>
-                            </div>
-                        </li>
-                        <li class="track__item">
-                            <div class="track__thumb">
-                                <img src="./img/mirinn-thumb.jpg" alt="artist album art thumbnail" />
-                            </div>
-                            <div class="track__details">
-                                <p class="track__title">ステラグロウ</p>
-                                <p class="track__artist">Mirinn</p>
-                            </div>
-                                <div class="track__time">
-                                <time datetime="">04:30</time>
-                            </div>
-                        </li>
-                        <li class="track__item">
-                            <div class="track__thumb">
-                                <img src="./img/personal-computer-thumb.jpg" alt="artist album art thumbnail" />
-                            </div>
-                            <div class="track__details">
-                                <p class="track__title">80386</p>
-                                <p class="track__artist">Master Boot Record</p>
-                            </div>
-                                <div class="track__time">
-                                <time datetime="">06:30</time>
-                            </div>
-                        </li>
-                        <li class="track__item">
-                            <div class="track__thumb">
-                                <img src="./img/signal-thumb.jpg" alt="artist album art thumbnail" />
-                            </div>
-                            <div class="track__details">
-                                <p class="track__title">Signal</p>
-                                <p class="track__artist">upusen</p>
-                            </div>
-                                <div class="track__time">
-                                <time datetime="">06:30</time>
-                            </div>
-                        </li>
-                        <li class="track__item">
-                            <div class="track__thumb">
-                                <img src="./img/we-do-it-together-thumb.jpg" alt="artist album art thumbnail" />
-                            </div>
-                            <div class="track__details">
-                                <p class="track__title">In My Flickers</p>
-                                <p class="track__artist">Airy</p>
-                            </div>
-                                <div class="track__time">
-                                <time datetime="">03:21</time>
-                            </div>
-                        </li>
-                        <li class="track__item">
-                            <div class="track__thumb">
-                                <img src="./img/world-is-ending-thumb.jpg" alt="artist album art thumbnail" />
-                            </div>
-                            <div class="track__details">
-                                <p class="track__title">Sailin</p>
-                                <p class="track__artist">Jack Goldstein</p>
-                            </div>
-                                <div class="track__time">
-                                <time datetime="">04:03</time>
-                            </div>
-                        </li> -->
-                    </ul>
-                </div>
-            </div>
-          <div class="container__bottom container">
-              <section class="progress">
-                <div class="played"></div>
-              </section>
-              <footer>
-                <div class="controls">
-                    <button id="btnPrev" title="previous track"><i class="material-icons-round">skip_previous</i></button>
-                    <button id="btnPlay" title="play | pause"><i class="material-icons-round">play_arrow</i></button>
-                    <button id="btnNext" title="next track"><i class="material-icons-round">skip_next</i></button>
-                </div>
-                <div class="times" preload="metadata">
-                  <time datetime="" class="current-time">00:00</time> &nbsp;|&nbsp;
-                  <time datetime="" class="total-time">00:00</time>
-                </div>
-              </footer>
-          </div>
+    <main class="container">
+      <div class="album_art__full">
+        <img src="./img/personal-computer.jpeg" alt="full album art" class="pulse"/>
+        <button id="btnShuffle" title="shuffle"><i class="material-icons-round">shuffle</i></button>
       </div>
+      <ul class="playlist">
+        <!-- playlist goes here  -->
+      </ul>
+    </main>
+    <div class="footer__wrap">
+      <section class="progress">
+        <div class="played"></div>
+      </section>
+      <footer class="container">
+        <div class="controls">
+          <button id="btnPrev" title="previous track"><i class="material-icons-round">skip_previous</i></button>
+          <button id="btnPlay" title="play | pause"><i class="material-icons-round">play_arrow</i></button>
+          <button id="btnNext" title="next track"><i class="material-icons-round">skip_next</i></button>
+      </div>
+        <div class="times">
+          <time datetime="" class="current-time">00:00</time> &nbsp;|&nbsp;
+          <time datetime="" class="total-time">00:00</time>
+        </div>
+      </footer>
+    </div>
 </body>
-</html>
