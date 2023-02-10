@@ -82,6 +82,7 @@ const APP = {
 
   loadedmetadata: ()=>{
     document.getElementsByClassName('current-time')[0].textContent = "00:00"
+    //Set total time once its loaded
     let time = APP.audio.duration;
     let MM = Math.floor(time/60);
     let SS = Math.floor(time%60);
@@ -111,6 +112,7 @@ const APP = {
     // }
   },
   convertTimeDisplay: () => {
+    //update time while playing
     let time = APP.audio.currentTime;
     let MM = Math.floor(time/60);
     let SS = Math.floor(time%60);
