@@ -28,31 +28,14 @@ const APP = {
 
         case "skip_next":
           break;
-          
+
         default:
           break;
       }
     })
-    // const playBtn = document.getElementById('btnPlay');
-    // playBtn.addEventListener('click', (ev) => {
-    //     ev.preventDefault();
-    //     ev.stopPropagation();
-    //     const txt = playBtn.textContent;
-        
-    //     if (txt === 'play_arrow') {
-    //         APP.audio.play();
-            
-    //     } else {
-    //         APP.audio.pause();
-    //     }
-    // });
-    //add event listeners for APP.audio
-
-    // APP.audio.addEventListener('ended', APP.ended);
-    // APP.audio.addEventListener('loadstart', APP.loadstart);
+    
+    //add event listeners for audio
     APP.audio.addEventListener('loadedmetadata', APP.loadedmetadata);
-    // APP.audio.addEventListener('canplay', APP.canplay);
-    // APP.audio.addEventListener('durationchange', APP.durationchange);
     APP.audio.addEventListener('timeupdate', APP.convertTimeDisplay);
     APP.audio.addEventListener('play', APP.play);
     APP.audio.addEventListener('pause', APP.pause);
