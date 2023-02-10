@@ -101,6 +101,9 @@ h1 {
     margin: auto;
     margin-bottom: 1rem;
     border: 2px dotted black;
+
+    max-height: 550px;
+    width: auto;
     
 }
 
@@ -242,11 +245,6 @@ button:active {
         grid-template-rows: max-content;
         grid-template-areas:
         "a b";
-    }
-
-    .album_art__full img {
-        max-height: 550px;
-        width: auto;
     }
 
     .track__title {
