@@ -1,4 +1,5 @@
 import MEDIA from './media.js'; //the data file import
+import {UTILS} from './utils.js';
 const APP = {
   audio: new Audio(), //the Audio Element that will play every track
   currentTrack: 0, //the integer representing the index in the MEDIA array
@@ -16,7 +17,12 @@ const APP = {
     controls.addEventListener('click', (ev)=>{
       switch (ev.target.innerText) {
         case "play_arrow":
-          APP.audio.play();
+          if (APP.audio.src){
+            APP.audio.play();
+          } else {
+            UTILS.warningP.innerText = 'There is no audio to play';
+            UTILS.popup();
+          }
           break;
 
         case "pause":
@@ -33,6 +39,7 @@ const APP = {
           break;
       }
     })
+    UTILS.popup();
     
     //add event listeners for audio
     APP.audio.addEventListener('loadedmetadata', APP.loadedmetadata);
@@ -98,19 +105,14 @@ const APP = {
   play: () => {
     //start the track loaded into APP.audio playing
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">pause</i>`
-    // if (APP.audio.src){
-    //     APP.audio.play();
-    // } else {
-    //     console.warn('Nothing loaded yet');
-    // }
+    
   },
+  
   pause: () => {
     //pause the track loaded into APP.audio playing
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">play_arrow</i>`
-    // if (APP.audio){
-    //     APP.audio.pause();
-    // }
   },
+  
   convertTimeDisplay: () => {
     //update time while playing
     let time = APP.audio.currentTime;
@@ -128,37 +130,29 @@ const APP = {
   errorHandler: (err) => {
     console.warn(`Error code: ${err.target.error.code} | Error message: ${err.target.error.message}`)
     
-    const warning = document.getElementsByClassName('warning')[0];
-    const p = warning.getElementsByTagName('p')[0];
-    
-    warning.addEventListener('click', (ev)=>{
-      ev.preventDefault();
-      warning.classList.add("hidden");
-    }, {once: true});
-    
     switch (err.target.error.code) {
       case 1:
         // window.alert(`User has cancelled fetching this track's audio.`);
-        p.innerHTML = `User has cancelled fetching this track's audio.`;
+        UTILS.warningP.innerText = `User has cancelled fetching this track's audio.`;
         break;
         
       case 2:
         // window.alert(`An error has occurred while downloading - check network connection.`);
-        p.innerHTML = `An error has occurred while downloading - check network connection.`;
+        UTILS.warningP.innerText = `An error has occurred while downloading - check network connection.`;
         break;
         
       case 3:
         // window.alert(`An error has occurred while decoding this track's file.`);
-        p.innerHTML = `An error has occurred while decoding this track's file.`;
+        UTILS.warningP.innerText = `An error has occurred while decoding this track's file.`;
         break;
           
       case 4:
         // window.alert(`This track's file is not supported or cannot be found.`);
-        p.innerHTML = `This track's file is not supported or cannot be found.`
+        UTILS.warningP.innerText = `This track's file is not supported or cannot be found.`
         break;
     }
     
-    warning.classList.remove('hidden');
+    UTILS.warning.classList.remove('hidden');
   }
 };
 
