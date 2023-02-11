@@ -91,7 +91,7 @@ h1 {
     font-size: clamp(1.563rem, 8vw, 2.441rem);
     display: inline-block;
     margin: 0;
-    background-image: linear-gradient(to right, var(--accent-color) 100%, transparent 100%);
+    background-image: linear-gradient(to left, var(--accent-color) 100%, transparent 100%);
     background-position: 0px .85em;
     background-repeat: repeat-x;
     background-size: 1em 0.5em;
