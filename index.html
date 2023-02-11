@@ -13,7 +13,7 @@
         default-src 'self' ;
         font-src 'self' https://fonts.gstatic.com ;
         style-src 'self' https://fonts.googleapis.com ;
-        img-src 'self' ;
+        img-src 'self' data: ;
         script-src 'self' ;
         media-src 'self' ;
     "/>
@@ -26,22 +26,22 @@
 </head>
 <body>
   <header>
-      <h1>Media Player v2.0</h1>
-    </header>
-    <main class="container">
-      <div class="album_art__full">
-        <img src="./img/personal-computer.jpeg" alt="full album art" class="pulse"/>
-        <button id="btnShuffle" title="shuffle"><i class="material-icons-round">shuffle</i></button>
-        <div class="warning hidden"><p></p></div>
-      </div>
-      <ul class="playlist">
-        <!-- playlist goes here  -->
-      </ul>
-    </main>
-    <div class="footer__wrap">
-      <section class="progress">
-        <div class="played"></div>
-      </section>
+    <h1>Media Player v2.0</h1>
+  </header>
+  <main class="container">
+    <div class="album_art__full">
+      <img src="./img/personal-computer.jpeg" alt="full album art" class="pulse"/>
+      <button id="btnShuffle" title="shuffle"><i class="material-icons-round">shuffle</i></button>
+      <div class="warning hidden"><p></p><p>Click to close.</p></div>
+    </div>
+    <ul class="playlist">
+      <!-- playlist goes here  -->
+    </ul>
+  </main>
+  <div class="footer__wrap">
+    <section class="progress">
+      <div class="played"></div>
+    </section>
       <footer class="container">
         <div class="controls">
           <button id="btnPrev" title="previous track"><i class="material-icons-round">skip_previous</i></button>

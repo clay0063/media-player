@@ -20,7 +20,7 @@ const APP = {
           if (APP.audio.src){
             APP.audio.play();
           } else {
-            UTILS.warningP.innerText = 'There is no audio to play';
+            UTILS.warningP.innerText = 'There is no audio to play.';
             UTILS.popup();
           }
           break;
@@ -39,7 +39,6 @@ const APP = {
           break;
       }
     })
-    UTILS.popup();
     
     //add event listeners for audio
     APP.audio.addEventListener('loadedmetadata', APP.loadedmetadata);
