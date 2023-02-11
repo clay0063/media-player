@@ -107,7 +107,7 @@ const APP = {
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">pause</i>`
     
   },
-  
+
   pause: () => {
     //pause the track loaded into APP.audio playing
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">play_arrow</i>`
@@ -128,31 +128,26 @@ const APP = {
   },
 
   errorHandler: (err) => {
-    console.warn(`Error code: ${err.target.error.code} | Error message: ${err.target.error.message}`)
-    
+    // console.warn(`Error code: ${err.target.error.code} | Error message: ${err.target.error.message}`)
+    UTILS.popup();
+
     switch (err.target.error.code) {
       case 1:
-        // window.alert(`User has cancelled fetching this track's audio.`);
         UTILS.warningP.innerText = `User has cancelled fetching this track's audio.`;
         break;
         
       case 2:
-        // window.alert(`An error has occurred while downloading - check network connection.`);
         UTILS.warningP.innerText = `An error has occurred while downloading - check network connection.`;
         break;
         
       case 3:
-        // window.alert(`An error has occurred while decoding this track's file.`);
         UTILS.warningP.innerText = `An error has occurred while decoding this track's file.`;
         break;
           
       case 4:
-        // window.alert(`This track's file is not supported or cannot be found.`);
         UTILS.warningP.innerText = `This track's file is not supported or cannot be found.`
         break;
     }
-    
-    UTILS.warning.classList.remove('hidden');
   }
 };
 
