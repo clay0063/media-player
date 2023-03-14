@@ -9,8 +9,8 @@ const APP = {
     APP.buildPlaylist();
     APP.addListeners();
     APP.loadCurrentTrack();
-    
   },
+
   addListeners: () => {
     //add event listeners for interface elements
     const controls = document.getElementsByClassName('controls')[0];
@@ -30,9 +30,11 @@ const APP = {
           break;
 
         case "skip_previous":
+          APP.previous();
           break;
 
         case "skip_next":
+          APP.next();
           break;
 
         default:
@@ -72,6 +74,7 @@ const APP = {
         //APP.audio.duration
     })
   },
+
   loadCurrentTrack: () => {
     //use the currentTrack value to set the src of the APP.audio element
     APP.audio.src = `./media/${APP.tracks[APP.currentTrack]}`;
@@ -105,6 +108,27 @@ const APP = {
     //start the track loaded into APP.audio playing
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">pause</i>`
     
+  },
+
+  next: () => {
+    APP.audio.pause(); //stop the current track playing
+    APP.currentTrack++; //increment the value
+    if (APP.currentTrack >= MEDIA.length) {
+      APP.currentTrack = 0;
+    };
+    APP.loadCurrentTrack();
+    APP.audio.play();
+  },
+
+  previous: () => {
+    APP.audio.pause(); //stop the current track playing
+    APP.currentTrack--; //increment the value
+    if (APP.currentTrack < 0) {
+      APP.currentTrack = MEDIA.length - 1;
+    };
+    APP.loadCurrentTrack();
+    //call the function to load the MEDIA[APP.currentTrack] src into APP.audio.src
+    //then call your function to play the prev track
   },
 
   pause: () => {
