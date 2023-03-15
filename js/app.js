@@ -73,37 +73,29 @@ const APP = {
         </div>
         `
         playlist.appendChild(li);
-        //APP.audio.duration
     })
-    function one() {
-      MEDIA.forEach((track) => {
-        //create a temporary audio element to open the audio file
-        let tempAudio = new Audio(`./media/${track.track}`);
-        //listen for the event
-        tempAudio.addEventListener('durationchange', (ev) => {
-          //`tempAudio` and `track` are both accessible from inside this function
-          //update the array item with the duration value
-          let duration = ev.target.duration;
-          // track['duration'] = duration;
-          // let timeString = APP.convertToMinutes(duration);
-          
-          track['duration'] = duration;
-          //update the display by finding the playlist item with the matching img src
-          //or track title or track id...
-          let thumbnails = document.querySelectorAll('.track__item img');
-          thumbnails.forEach((thumb, index) => {
-            if (thumb.src.includes(track.thumbnail)) {
-              //convert the duration in seconds to a 00:00 string
-              let timeString = APP.convertToMinutes(duration);
-              //update the playlist display for the matching item
-              thumb.closest('.track__item').getElementsByTagName('time')[0].textContent = timeString;
-            }
-          });
+    APP.getAllTimes();
+  },
 
+  getAllTimes: () => {
+    MEDIA.forEach((track) => {
+      let tempAudio = new Audio(`./media/${track.track}`);
+      tempAudio.addEventListener('durationchange', (ev) => {
+        let duration = ev.target.duration;
+        track['duration'] = duration;
+        //update the display by finding the playlist item with the matching img src
+        //or track title or track id...
+        let thumbnails = document.querySelectorAll('.track__item img');
+        thumbnails.forEach((thumb, index) => {
+          if (thumb.src.includes(track.thumbnail)) {
+            //convert the duration in seconds to a 00:00 string
+            let timeString = APP.convertToMinutes(duration);
+            //update the playlist display for the matching item
+            thumb.closest('.track__item').getElementsByTagName('time')[0].textContent = timeString;
+          }
         });
       });
-    }
-    one();
+    });
   },
 
   loadCurrentTrack: () => {
@@ -130,15 +122,8 @@ const APP = {
     document.getElementsByClassName('current-time')[0].textContent = "00:00"
     //Set total time once its loaded
     let time = APP.audio.duration;
-    let MM = Math.floor(time/60);
-    let SS = Math.floor(time%60);
-    if (MM < 10) {
-      MM = `0${MM}`
-    }
-    if (SS < 10) {
-      SS = `0${SS}`
-    }
-    document.getElementsByClassName('total-time')[0].textContent = `${MM}:${SS}`;
+    let timeStamp = APP.convertToMinutes(time)
+    document.getElementsByClassName('total-time')[0].textContent = timeStamp;
   },
 
   play: () => {
