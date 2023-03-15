@@ -96,7 +96,7 @@ const APP = {
               //convert the duration in seconds to a 00:00 string
               let timeString = APP.convertToMinutes(duration);
               //update the playlist display for the matching item
-              thumb.closest('.track__item').querySelector('datetime').innerHTML = timeString;
+              thumb.closest('.track__item').getElementsByTagName('time')[0].textContent = timeString;
             }
           });
 
@@ -148,24 +148,32 @@ const APP = {
   },
 
   next: () => {
-    APP.audio.pause(); //stop the current track playing
-    APP.currentTrack++; //increment the value
+    let wasPlaying = false; //was reacting unpredictably when not declared first outside of if statement
+    if (!APP.audio.paused){
+      wasPlaying = true;
+      APP.audio.pause(); 
+    }
+    APP.currentTrack++; 
     if (APP.currentTrack >= MEDIA.length) {
       APP.currentTrack = 0;
     };
     APP.loadCurrentTrack();
-    APP.audio.play();
+    if (wasPlaying) { APP.audio.play(); };
+    
   },
 
   previous: () => {
-    APP.audio.pause(); //stop the current track playing
-    APP.currentTrack--; //increment the value
+    let wasPlaying = false;
+    if (!APP.audio.paused){
+      wasPlaying = true;
+      APP.audio.pause(); 
+    }
+    APP.currentTrack--; 
     if (APP.currentTrack < 0) {
       APP.currentTrack = MEDIA.length - 1;
     };
     APP.loadCurrentTrack();
-    //call the function to load the MEDIA[APP.currentTrack] src into APP.audio.src
-    //then call your function to play the prev track
+    if (wasPlaying) { APP.audio.play(); };
   },
 
   pause: () => {
@@ -176,14 +184,9 @@ const APP = {
   convertToMinutes: (time) => {
     let MM = Math.floor(time/60);
     let SS = Math.floor(time%60);
-    if (MM < 10) {
-      MM = `0${MM}`
-    }
-    if (SS < 10) {
-      SS = `0${SS}`
-    }
-    time = `${MM}:${SS}`;
-    return time;
+    if (MM < 10) { MM = `0${MM}` };
+    if (SS < 10) { SS = `0${SS}` };
+    return time = `${MM}:${SS}`;
   },
 
   displayTime: () => {
@@ -193,7 +196,6 @@ const APP = {
   },
 
   errorHandler: (err) => {
-    // console.warn(`Error code: ${err.target.error.code} | Error message: ${err.target.error.message}`)
     UTILS.popup();
 
     switch (err.target.error.code) {
