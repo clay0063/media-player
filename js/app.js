@@ -42,6 +42,14 @@ const APP = {
           break;
       }
     })
+
+    //add event listeners for the playlist
+    const playlist = document.getElementsByClassName('playlist')[0];
+    playlist.addEventListener('click', (ev) => {
+      const li = ev.target.closest('li');
+      console.log(li)
+      
+    })
     
     //add event listeners for audio
     APP.audio.addEventListener('loadedmetadata', APP.loadedmetadata);
@@ -59,6 +67,7 @@ const APP = {
     MEDIA.forEach(song => {
         const li = document.createElement('li');
         li.classList.add('track__item');
+        li.setAttribute(`data-src`, `/media/${song.track}`)
         li.innerHTML =
         `
         <div class="track__thumb">
@@ -84,7 +93,6 @@ const APP = {
         let duration = ev.target.duration;
         track['duration'] = duration;
         //update the display by finding the playlist item with the matching img src
-        //or track title or track id...
         let thumbnails = document.querySelectorAll('.track__item img');
         thumbnails.forEach((thumb, index) => {
           if (thumb.src.includes(track.thumbnail)) {
@@ -99,19 +107,18 @@ const APP = {
   },
 
   loadCurrentTrack: () => {
-    //remove current active 
+    //remove current active class
     const allElements = document.querySelectorAll('li');
     allElements.forEach((element) => {
       element.classList.remove('active');
     });
 
-    
     APP.audio.src = `./media/${APP.tracks[APP.currentTrack]}`;
-    console.log(`Loaded ${APP.audio.src}`);
     const albumArt = document.getElementsByClassName('album_art__full')[0];
     const img = albumArt.querySelector('img');
     img.src = `./img/${MEDIA[APP.currentTrack].large}`
     
+    // creates an array of all the lis in the playlist, adds class to current selected one
     const li = Array.from(document.getElementsByClassName('playlist')[0].children);
     let selected = li[APP.currentTrack];
     selected.classList.add('active');
@@ -133,6 +140,7 @@ const APP = {
   },
 
   next: () => {
+    //pause and play new song if it was playing before
     let wasPlaying = false; //was reacting unpredictably when not declared first outside of if statement
     if (!APP.audio.paused){
       wasPlaying = true;
@@ -165,6 +173,12 @@ const APP = {
     //pause the track loaded into APP.audio playing
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">play_arrow</i>`
   },
+
+  displayTime: () => {
+    let time = APP.audio.currentTime;
+    let timestamp = APP.convertToMinutes(time);
+    document.getElementsByClassName('current-time')[0].textContent = timestamp;
+  },
   
   convertToMinutes: (time) => {
     let MM = Math.floor(time/60);
@@ -172,12 +186,6 @@ const APP = {
     if (MM < 10) { MM = `0${MM}` };
     if (SS < 10) { SS = `0${SS}` };
     return time = `${MM}:${SS}`;
-  },
-
-  displayTime: () => {
-    let time = APP.audio.currentTime;
-    let timestamp = APP.convertToMinutes(time);
-    document.getElementsByClassName('current-time')[0].textContent = timestamp;
   },
 
   errorHandler: (err) => {
