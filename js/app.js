@@ -9,6 +9,7 @@ const APP = {
     APP.buildPlaylist();
     APP.addListeners();
     APP.loadCurrentTrack();
+  
   },
 
   addListeners: () => {
@@ -44,7 +45,7 @@ const APP = {
     
     //add event listeners for audio
     APP.audio.addEventListener('loadedmetadata', APP.loadedmetadata);
-    APP.audio.addEventListener('timeupdate', APP.convertTimeDisplay);
+    APP.audio.addEventListener('timeupdate', APP.displayTime);
     APP.audio.addEventListener('play', APP.play);
     APP.audio.addEventListener('pause', APP.pause);
     APP.audio.addEventListener('error', APP.errorHandler);
@@ -54,6 +55,7 @@ const APP = {
   buildPlaylist: () => {
     //read the contents of MEDIA and create the playlist
     const playlist = document.getElementsByClassName('playlist')[0];
+    
     MEDIA.forEach(song => {
         const li = document.createElement('li');
         li.classList.add('track__item');
@@ -73,10 +75,45 @@ const APP = {
         playlist.appendChild(li);
         //APP.audio.duration
     })
+    function one() {
+      MEDIA.forEach((track) => {
+        //create a temporary audio element to open the audio file
+        let tempAudio = new Audio(`./media/${track.track}`);
+        //listen for the event
+        tempAudio.addEventListener('durationchange', (ev) => {
+          //`tempAudio` and `track` are both accessible from inside this function
+          //update the array item with the duration value
+          let duration = ev.target.duration;
+          // track['duration'] = duration;
+          // let timeString = APP.convertToMinutes(duration);
+          
+          track['duration'] = duration;
+          //update the display by finding the playlist item with the matching img src
+          //or track title or track id...
+          let thumbnails = document.querySelectorAll('.track__item img');
+          thumbnails.forEach((thumb, index) => {
+            if (thumb.src.includes(track.thumbnail)) {
+              //convert the duration in seconds to a 00:00 string
+              let timeString = APP.convertToMinutes(duration);
+              //update the playlist display for the matching item
+              thumb.closest('.track__item').querySelector('datetime').innerHTML = timeString;
+            }
+          });
+
+        });
+      });
+    }
+    one();
   },
 
   loadCurrentTrack: () => {
-    //use the currentTrack value to set the src of the APP.audio element
+    //remove current active 
+    const allElements = document.querySelectorAll('li');
+    allElements.forEach((element) => {
+      element.classList.remove('active');
+    });
+
+    
     APP.audio.src = `./media/${APP.tracks[APP.currentTrack]}`;
     console.log(`Loaded ${APP.audio.src}`);
     const albumArt = document.getElementsByClassName('album_art__full')[0];
@@ -136,9 +173,7 @@ const APP = {
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">play_arrow</i>`
   },
   
-  convertTimeDisplay: () => {
-    //update time while playing
-    let time = APP.audio.currentTime;
+  convertToMinutes: (time) => {
     let MM = Math.floor(time/60);
     let SS = Math.floor(time%60);
     if (MM < 10) {
@@ -147,7 +182,14 @@ const APP = {
     if (SS < 10) {
       SS = `0${SS}`
     }
-    document.getElementsByClassName('current-time')[0].textContent = `${MM}:${SS}`;
+    time = `${MM}:${SS}`;
+    return time;
+  },
+
+  displayTime: () => {
+    let time = APP.audio.currentTime;
+    let timestamp = APP.convertToMinutes(time);
+    document.getElementsByClassName('current-time')[0].textContent = timestamp;
   },
 
   errorHandler: (err) => {
