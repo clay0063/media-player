@@ -45,11 +45,7 @@ const APP = {
 
     //add event listeners for the playlist
     const playlist = document.getElementsByClassName('playlist')[0];
-    playlist.addEventListener('click', (ev) => {
-      const li = ev.target.closest('li');
-      console.log(li)
-      
-    })
+    playlist.addEventListener('click', APP.clickPlaylist);
     
     //add event listeners for audio
     APP.audio.addEventListener('loadedmetadata', APP.loadedmetadata);
@@ -60,6 +56,29 @@ const APP = {
 
   },
 
+  clickPlaylist: (ev) => {
+    const li = ev.target.closest('li');
+    const data = li.getAttribute('data-src');
+    
+    const mp3 = MEDIA.find(song => song.track === data);
+
+    APP.currentTrack = MEDIA.indexOf(mp3);
+
+    APP.checkAndChange();
+  },
+
+  checkAndChange: () => {
+    let wasPlaying = false;
+    if (!APP.audio.paused){
+      wasPlaying = true;
+      APP.audio.pause();
+    };
+
+    APP.loadCurrentTrack();
+
+    if (wasPlaying) { APP.audio.play() };
+  },
+
   buildPlaylist: () => {
     //read the contents of MEDIA and create the playlist
     const playlist = document.getElementsByClassName('playlist')[0];
@@ -67,7 +86,7 @@ const APP = {
     MEDIA.forEach(song => {
         const li = document.createElement('li');
         li.classList.add('track__item');
-        li.setAttribute(`data-src`, `/media/${song.track}`)
+        li.setAttribute(`data-src`, song.track)
         li.innerHTML =
         `
         <div class="track__thumb">
@@ -140,33 +159,19 @@ const APP = {
   },
 
   next: () => {
-    //pause and play new song if it was playing before
-    let wasPlaying = false; //was reacting unpredictably when not declared first outside of if statement
-    if (!APP.audio.paused){
-      wasPlaying = true;
-      APP.audio.pause(); 
-    }
     APP.currentTrack++; 
     if (APP.currentTrack >= MEDIA.length) {
       APP.currentTrack = 0;
     };
-    APP.loadCurrentTrack();
-    if (wasPlaying) { APP.audio.play(); };
-    
+    APP.checkAndChange();
   },
 
   previous: () => {
-    let wasPlaying = false;
-    if (!APP.audio.paused){
-      wasPlaying = true;
-      APP.audio.pause(); 
-    }
     APP.currentTrack--; 
     if (APP.currentTrack < 0) {
       APP.currentTrack = MEDIA.length - 1;
     };
-    APP.loadCurrentTrack();
-    if (wasPlaying) { APP.audio.play(); };
+    APP.checkAndChange();
   },
 
   pause: () => {
