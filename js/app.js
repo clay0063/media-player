@@ -76,8 +76,8 @@ const APP = {
     //read the contents of MEDIA and create the playlist
     const playlist = document.querySelector('.playlist');
     
-    MEDIA.forEach(song => {
-        const li = document.createElement('li');
+    const playlistData = MEDIA.map((song) => {
+      const li = document.createElement('li');
         li.classList.add('track__item');
         li.setAttribute(`data-src`, song.track)
         li.innerHTML =
@@ -89,12 +89,13 @@ const APP = {
             <p class="track__title">${song.title}</p>
             <p class="track__artist">${song.artist}</p>
         </div>
-            <div class="track__time">
+        <div class="track__time">
             <time datetime="">00:00</time>
         </div>
         `
-        playlist.appendChild(li);
-    })
+        return li;
+    });
+    playlist.append(...playlistData);
     APP.getAllTimes();
   },
 
