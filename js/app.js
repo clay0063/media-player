@@ -14,11 +14,11 @@ const APP = {
 
   addListeners: () => {
     //add event listeners for interface elements
-    const controls = document.getElementsByClassName('controls')[0];
+    const controls = document.querySelector('.controls');
     controls.addEventListener('click', APP.controlSwitch);
 
     //add event listeners for the playlist
-    const playlist = document.getElementsByClassName('playlist')[0];
+    const playlist = document.querySelector('.playlist');
     playlist.addEventListener('click', APP.clickPlaylist);
     
     //add event listeners for audio
@@ -74,7 +74,7 @@ const APP = {
 
   buildPlaylist: () => {
     //read the contents of MEDIA and create the playlist
-    const playlist = document.getElementsByClassName('playlist')[0];
+    const playlist = document.querySelector('.playlist');
     
     MEDIA.forEach(song => {
         const li = document.createElement('li');
@@ -111,7 +111,7 @@ const APP = {
             //convert the duration in seconds to a 00:00 string
             let timeString = APP.convertToMinutes(duration);
             //update the playlist display for the matching item
-            thumb.closest('.track__item').getElementsByTagName('time')[0].textContent = timeString;
+            thumb.closest('.track__item').querySelector('time').textContent = timeString;
           }
         });
       });
@@ -126,23 +126,22 @@ const APP = {
     });
 
     APP.audio.src = `./media/${APP.tracks[APP.currentTrack]}`;
-    const albumArt = document.getElementsByClassName('album_art__full')[0];
+    const albumArt = document.querySelector('.album_art__full');
     const img = albumArt.querySelector('img');
     img.src = `./img/${MEDIA[APP.currentTrack].large}`
     
-    // creates an array of all the lis in the playlist, adds class to current selected one
-    const li = Array.from(document.getElementsByClassName('playlist')[0].children);
+    const li = document.querySelectorAll('.playlist li')
     let selected = li[APP.currentTrack];
     selected.classList.add('active');
 
   },
 
   loadedmetadata: ()=>{
-    document.getElementsByClassName('current-time')[0].textContent = "00:00"
+    document.querySelector('.current-time').textContent = "00:00"
     //Set total time once its loaded
     let time = APP.audio.duration;
     let timeStamp = APP.convertToMinutes(time)
-    document.getElementsByClassName('total-time')[0].textContent = timeStamp;
+    document.querySelector('.total-time').textContent = timeStamp;
   },
 
   play: () => {
@@ -179,7 +178,7 @@ const APP = {
   displayTime: () => {
     let time = APP.audio.currentTime;
     let timestamp = APP.convertToMinutes(time);
-    document.getElementsByClassName('current-time')[0].textContent = timestamp;
+    document.querySelector('.current-time').textContent = timestamp;
   },
   
   convertToMinutes: (time) => {
