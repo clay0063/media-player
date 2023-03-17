@@ -95,6 +95,8 @@ const APP = {
         `
         return li;
     });
+    //using join('') breaks the playlist and doesn't display the lis,
+    //removing join and spreading it works instead 
     playlist.append(...playlistData);
     APP.getAllTimes();
   },
