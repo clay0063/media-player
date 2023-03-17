@@ -1,6 +1,6 @@
 const UTILS = {
-    warning: document.getElementsByClassName('warning')[0],
-    warningP: document.getElementsByClassName('warning')[0].getElementsByTagName('p')[0],
+    warning: document.querySelector('.warning'),
+    warningP: document.querySelector('.warning p'),
     popup: () =>{
         UTILS.warning.classList.remove('hidden');
 
