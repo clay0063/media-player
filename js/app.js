@@ -52,6 +52,7 @@ const APP = {
     APP.audio.addEventListener('timeupdate', APP.displayTime);
     APP.audio.addEventListener('play', APP.play);
     APP.audio.addEventListener('pause', APP.pause);
+    APP.audio.addEventListener('ended', APP.next);
     APP.audio.addEventListener('error', APP.errorHandler);
 
   },
@@ -61,22 +62,12 @@ const APP = {
     const data = li.getAttribute('data-src');
     
     const mp3 = MEDIA.find(song => song.track === data);
-
+    
+    APP.audio.pause();
     APP.currentTrack = MEDIA.indexOf(mp3);
 
-    APP.checkAndChange();
-  },
-
-  checkAndChange: () => {
-    let wasPlaying = false;
-    if (!APP.audio.paused){
-      wasPlaying = true;
-      APP.audio.pause();
-    };
-
     APP.loadCurrentTrack();
-
-    if (wasPlaying) { APP.audio.play() };
+    APP.audio.play()
   },
 
   buildPlaylist: () => {
@@ -159,19 +150,23 @@ const APP = {
   },
 
   next: () => {
+    APP.audio.pause();
     APP.currentTrack++; 
     if (APP.currentTrack >= MEDIA.length) {
       APP.currentTrack = 0;
     };
-    APP.checkAndChange();
+    APP.loadCurrentTrack();
+    APP.audio.play()
   },
 
   previous: () => {
+    APP.audio.pause();
     APP.currentTrack--; 
     if (APP.currentTrack < 0) {
       APP.currentTrack = MEDIA.length - 1;
     };
-    APP.checkAndChange();
+    APP.loadCurrentTrack();
+    APP.audio.play()
   },
 
   pause: () => {
