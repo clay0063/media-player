@@ -15,33 +15,7 @@ const APP = {
   addListeners: () => {
     //add event listeners for interface elements
     const controls = document.getElementsByClassName('controls')[0];
-    controls.addEventListener('click', (ev)=>{
-      switch (ev.target.innerText) {
-        case "play_arrow":
-          if (APP.audio.src){
-            APP.audio.play();
-          } else {
-            UTILS.warningP.innerText = 'There is no audio to play.';
-            UTILS.popup();
-          }
-          break;
-
-        case "pause":
-          APP.audio.pause();
-          break;
-
-        case "skip_previous":
-          APP.previous();
-          break;
-
-        case "skip_next":
-          APP.next();
-          break;
-
-        default:
-          break;
-      }
-    })
+    controls.addEventListener('click', APP.controlSwitch);
 
     //add event listeners for the playlist
     const playlist = document.getElementsByClassName('playlist')[0];
@@ -55,6 +29,34 @@ const APP = {
     APP.audio.addEventListener('ended', APP.next);
     APP.audio.addEventListener('error', APP.errorHandler);
 
+  },
+
+  controlSwitch: (ev) => {
+    switch (ev.target.innerText) {
+      case "play_arrow":
+        if (APP.audio.src){
+          APP.audio.play();
+        } else {
+          UTILS.warningP.innerText = 'There is no audio to play.';
+          UTILS.popup();
+        }
+        break;
+
+      case "pause":
+        APP.audio.pause();
+        break;
+
+      case "skip_previous":
+        APP.previous();
+        break;
+
+      case "skip_next":
+        APP.next();
+        break;
+
+      default:
+        break;
+    }
   },
 
   clickPlaylist: (ev) => {
