@@ -24,6 +24,9 @@ const APP = {
     //add event listeners on progress bar
     const progressBar = document.querySelector(".progress");
     progressBar.addEventListener('click', APP.tracking);
+
+    //add even listener on shuffle
+    document.getElementById('btnShuffle').addEventListener('click', APP.shuffle);
     
     //add event listeners for audio
     APP.audio.addEventListener('loadedmetadata', APP.loadedmetadata);
@@ -45,8 +48,21 @@ const APP = {
     played.style.width = (progress * 100).toFixed(2) + "vw";
 
     let newTime = APP.audio.duration * progress;
-    APP.audio.currentTime = newTime
+    APP.audio.currentTime = newTime;
     
+  },
+
+  shuffle: (ev) => {
+    console.log(ev);
+    APP.audio.pause();
+    APP.currentTrack = 0;
+    APP.loadCurrentTrack();
+
+    MEDIA.shuffle();
+    APP.tracks = MEDIA.map(songs => songs.track);
+    APP.buildPlaylist();
+    APP.loadCurrentTrack();
+    APP.audio.play();
   },
 
   controlSwitch: (ev) => {
@@ -93,7 +109,7 @@ const APP = {
   buildPlaylist: () => {
     //read the contents of MEDIA and create the playlist
     const playlist = document.querySelector('.playlist');
-    
+    playlist.innerHTML = "";
     const playlistData = MEDIA.map((song) => {
       const li = document.createElement('li');
         li.classList.add('track__item');
