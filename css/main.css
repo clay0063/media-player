@@ -115,7 +115,7 @@ h1 {
 
 .played {
     background-color: var(--secondary-color-dark);
-    width: 0%;
+    width: 0vw;
     height: 100%;
 }
 

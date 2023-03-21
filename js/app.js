@@ -20,6 +20,10 @@ const APP = {
     //add event listeners for the playlist
     const playlist = document.querySelector('.playlist');
     playlist.addEventListener('click', APP.clickPlaylist);
+
+    //add event listeners on progress bar
+    const progressBar = document.querySelector(".progress");
+    progressBar.addEventListener('click', APP.tracking);
     
     //add event listeners for audio
     APP.audio.addEventListener('loadedmetadata', APP.loadedmetadata);
@@ -29,6 +33,17 @@ const APP = {
     APP.audio.addEventListener('ended', APP.next);
     APP.audio.addEventListener('error', APP.errorHandler);
 
+  },
+
+  tracking: (ev) => {
+    const progressBar = document.querySelector(".progress");
+    const played = document.querySelector(".played");
+    
+    const x = ev.x;
+    const width = progressBar.clientWidth;
+    const progress = (x / width);
+    played.style.width = (progress * 100).toFixed(2) + "vw";
+    
   },
 
   controlSwitch: (ev) => {
@@ -187,7 +202,7 @@ const APP = {
     let duration = APP.audio.duration;
     let percentage = ((time / duration) * 100).toFixed(2);
     const played = document.querySelector(".played");
-    played.style.width = percentage + "%";
+    played.style.width = percentage + "vw";
 
   },
   
