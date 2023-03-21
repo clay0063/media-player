@@ -179,9 +179,16 @@ const APP = {
   },
 
   displayTime: () => {
+    //update seek bar here
     let time = APP.audio.currentTime;
     let timestamp = APP.convertToMinutes(time);
     document.querySelector('.current-time').textContent = timestamp;
+
+    let duration = APP.audio.duration;
+    let percentage = ((time / duration) * 100).toFixed(2);
+    const played = document.querySelector(".played");
+    played.style.width = percentage + "%";
+
   },
   
   convertToMinutes: (time) => {
