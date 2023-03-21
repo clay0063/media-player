@@ -43,6 +43,9 @@ const APP = {
     const width = progressBar.clientWidth;
     const progress = (x / width);
     played.style.width = (progress * 100).toFixed(2) + "vw";
+
+    let newTime = APP.audio.duration * progress;
+    APP.audio.currentTime = newTime
     
   },
 
