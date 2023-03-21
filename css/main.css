@@ -117,6 +117,11 @@ h1 {
     background-color: var(--secondary-color-dark);
     width: 0vw;
     height: 100%;
+    transition: width .25s ease;
+    -webkit-transition: width .25s ease;
+    -moz-transition: width .25s ease;
+    -ms-transition: width .25s ease;
+    -o-transition: width .25s ease;
 }
 
 .times {
