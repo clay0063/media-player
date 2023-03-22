@@ -184,6 +184,7 @@ const APP = {
   play: () => {
     //start the track loaded into APP.audio playing
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">pause</i>`
+    document.querySelector('body').classList.add('playing');
     
   },
 
@@ -210,6 +211,8 @@ const APP = {
   pause: () => {
     //pause the track loaded into APP.audio playing
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">play_arrow</i>`
+    document.querySelector('body').classList.remove('playing');
+
   },
 
   displayTime: () => {

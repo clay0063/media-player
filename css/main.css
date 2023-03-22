@@ -149,6 +149,48 @@ h1 {
     display: none;
 }
 
+body.playing {
+    animation-name: background;
+    animation-duration: 4s;
+    animation-iteration-count: infinite; 
+}
+
+body.playing .playlist .active img {
+    animation: image-spin 3s linear infinite;
+    -webkit-animation: image-spin 3s linear infinite;
+    
+    
+}
+
+@keyframes image-spin {
+    from {
+        transform: rotate(0deg);
+        scale: 0.75;
+}
+      to {
+        transform: rotate(360deg);
+        scale: 0.75;
+      }
+}
+
+@keyframes background {
+    0% {
+      background-color: var(--secondary-color-clear);
+    }
+   25% {
+      background-color: var(--secondary-color);
+    }
+    50% {
+      background-color: var(--secondary-color-dark);
+    }
+    75% {
+      background-color: var(--secondary-color);
+    }
+    100% {
+      background-color: var(--secondary-color-clear);
+    }
+  }
+
 /* Misc Styling End  */
 
 /* Playlist Styling Start */
