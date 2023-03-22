@@ -149,48 +149,6 @@ h1 {
     display: none;
 }
 
-body.playing {
-    animation-name: background;
-    animation-duration: 4s;
-    animation-iteration-count: infinite; 
-}
-
-body.playing .playlist .active img {
-    animation: image-spin 3s linear infinite;
-    -webkit-animation: image-spin 3s linear infinite;
-    
-    
-}
-
-@keyframes image-spin {
-    from {
-        transform: rotate(0deg);
-        scale: 0.75;
-}
-      to {
-        transform: rotate(360deg);
-        scale: 0.75;
-      }
-}
-
-@keyframes background {
-    0% {
-      background-color: var(--secondary-color-clear);
-    }
-   25% {
-      background-color: var(--secondary-color);
-    }
-    50% {
-      background-color: var(--secondary-color-dark);
-    }
-    75% {
-      background-color: var(--secondary-color);
-    }
-    100% {
-      background-color: var(--secondary-color-clear);
-    }
-  }
-
 /* Misc Styling End  */
 
 /* Playlist Styling Start */
@@ -357,39 +315,45 @@ button:active {
 
 }
 
-/*---- Animations when music is playing,
-Turned off for now -----*/
+/* Animation Stuff  */
 
-/* .pulse {
-    animation: pulse 1s infinite;
-    box-shadow: 0px 0px 10px var(--accent-color);
-} */
+body.playing {
+    animation: background-change 3s linear infinite;
+    -webkit-animation: background-change 3s linear infinite;
+}
 
-@keyframes pulse {
+body.playing .album_art__full img {
+    border-radius: 4rem;
+    animation: image-spin 6s linear infinite;
+    -webkit-animation: image-spin 6s linear infinite;
+}
+
+@keyframes image-spin {
+    from {
+        transform: rotate(0deg);
+        scale: 0.8;
+}
+      to {
+        transform: rotate(360deg);
+        scale: 0.8;
+      }
+}
+
+@keyframes background-change {
     0% {
-        transform: scale(1);
+      background-color: var(--secondary-color-clear);
     }
-    
-    25% {
-        transform: scale(.95);
-        box-shadow: 0px 0px 20px var(--accent-color);
+   25% {
+      background-color: var(--secondary-color);
     }
-
     50% {
-        transform: scale(1.03);
-        box-shadow: 0px 0px 10px var(--accent-color);
-        -webkit-transform: scale(1.03);
-        -moz-transform: scale(1.03);
-        -ms-transform: scale(1.03);
-        -o-transform: scale(1.03);
-}
-
+      background-color: var(--secondary-color-dark);
+    }
     75% {
-        transform:scale(.95);
-        box-shadow: 0px 0px 20px var(--accent-color);
+      background-color: var(--secondary-color);
     }
-
     100% {
-        transform: scale(1);
+      background-color: var(--secondary-color-clear);
     }
-}
+  }
+
