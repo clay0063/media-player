@@ -2,8 +2,7 @@ import MEDIA from './media.js'; //the data file import
 import {UTILS} from './utils.js';
 const APP = {
   audio: new Audio(), //the Audio Element that will play every track
-  currentTrack: 0, //the integer representing the index in the MEDIA array
-  tracks: MEDIA.map(songs => songs.track),
+  currentTrack: 0, //the integer representing the index in the MEDIA array\
   init: () => {
     //called when DOMContentLoaded is triggered
     APP.buildPlaylist();
@@ -20,6 +19,13 @@ const APP = {
     //add event listeners for the playlist
     const playlist = document.querySelector('.playlist');
     playlist.addEventListener('click', APP.clickPlaylist);
+
+    //add event listeners on progress bar
+    const progressBar = document.querySelector(".progress");
+    progressBar.addEventListener('click', APP.tracking);
+
+    //add even listener on shuffle
+    document.getElementById('btnShuffle').addEventListener('click', APP.shuffle);
     
     //add event listeners for audio
     APP.audio.addEventListener('loadedmetadata', APP.loadedmetadata);
@@ -29,6 +35,32 @@ const APP = {
     APP.audio.addEventListener('ended', APP.next);
     APP.audio.addEventListener('error', APP.errorHandler);
 
+  },
+
+  tracking: (ev) => {
+    const progressBar = document.querySelector(".progress");
+    const played = document.querySelector(".played");
+    
+    const x = ev.x;
+    const width = progressBar.clientWidth;
+    const progress = (x / width);
+    played.style.width = (progress * 100).toFixed(2) + "vw";
+
+    let newTime = APP.audio.duration * progress;
+    APP.audio.currentTime = newTime;
+    
+  },
+
+  shuffle: (ev) => {
+    console.log(ev);
+    APP.audio.pause();
+    APP.currentTrack = 0;
+    APP.loadCurrentTrack();
+
+    MEDIA.shuffle();
+    APP.buildPlaylist();
+    APP.loadCurrentTrack();
+    APP.audio.play();
   },
 
   controlSwitch: (ev) => {
@@ -75,7 +107,7 @@ const APP = {
   buildPlaylist: () => {
     //read the contents of MEDIA and create the playlist
     const playlist = document.querySelector('.playlist');
-    
+    playlist.innerHTML = "";
     const playlistData = MEDIA.map((song) => {
       const li = document.createElement('li');
         li.classList.add('track__item');
@@ -102,21 +134,18 @@ const APP = {
   },
 
   getAllTimes: () => {
+    
+    
     MEDIA.forEach((track) => {
       let tempAudio = new Audio(`./media/${track.track}`);
       tempAudio.addEventListener('durationchange', (ev) => {
         let duration = ev.target.duration;
         track['duration'] = duration;
         //update the display by finding the playlist item with the matching img src
-        let thumbnails = document.querySelectorAll('.track__item img');
-        thumbnails.forEach((thumb, index) => {
-          if (thumb.src.includes(track.thumbnail)) {
-            //convert the duration in seconds to a 00:00 string
-            let timeString = APP.convertToMinutes(duration);
-            //update the playlist display for the matching item
-            thumb.closest('.track__item').querySelector('time').textContent = timeString;
-          }
-        });
+
+        let timeString = APP.convertToMinutes(duration);
+        document.querySelector(`li[data-src="${track.track}"] time`).textContent = timeString;
+
       });
     });
   },
@@ -124,11 +153,13 @@ const APP = {
   loadCurrentTrack: () => {
     //remove current active class
     const allElements = document.querySelectorAll('li');
+    const tracks = MEDIA.map(songs => songs.track);
+
     allElements.forEach((element) => {
       element.classList.remove('active');
     });
 
-    APP.audio.src = `./media/${APP.tracks[APP.currentTrack]}`;
+    APP.audio.src = `./media/${tracks[APP.currentTrack]}`;
     const albumArt = document.querySelector('.album_art__full');
     const img = albumArt.querySelector('img');
     img.src = `./img/${MEDIA[APP.currentTrack].large}`
@@ -150,6 +181,7 @@ const APP = {
   play: () => {
     //start the track loaded into APP.audio playing
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">pause</i>`
+    document.querySelector('body').classList.add('playing');
     
   },
 
@@ -176,12 +208,21 @@ const APP = {
   pause: () => {
     //pause the track loaded into APP.audio playing
     document.getElementById('btnPlay').innerHTML = `<i class="material-icons-round">play_arrow</i>`
+    document.querySelector('body').classList.remove('playing');
+
   },
 
   displayTime: () => {
+    //update seek bar here
     let time = APP.audio.currentTime;
     let timestamp = APP.convertToMinutes(time);
     document.querySelector('.current-time').textContent = timestamp;
+
+    let duration = APP.audio.duration;
+    let percentage = ((time / duration) * 100).toFixed(2);
+    const played = document.querySelector(".played");
+    played.style.width = percentage + "vw";
+
   },
   
   convertToMinutes: (time) => {
