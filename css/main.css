@@ -320,7 +320,7 @@ button:active {
 
 body.playing {
     animation: background-change 4s linear infinite;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.4), rgba(148, 184, 178, 0.4));
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.4), rgba(148, 184, 178, 0.8));
     -webkit-animation: background-change 4s linear infinite;
 }
 
