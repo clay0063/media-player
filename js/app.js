@@ -2,8 +2,7 @@ import MEDIA from './media.js'; //the data file import
 import {UTILS} from './utils.js';
 const APP = {
   audio: new Audio(), //the Audio Element that will play every track
-  currentTrack: 0, //the integer representing the index in the MEDIA array
-  tracks: MEDIA.map(songs => songs.track),
+  currentTrack: 0, //the integer representing the index in the MEDIA array\
   init: () => {
     //called when DOMContentLoaded is triggered
     APP.buildPlaylist();
@@ -59,7 +58,6 @@ const APP = {
     APP.loadCurrentTrack();
 
     MEDIA.shuffle();
-    APP.tracks = MEDIA.map(songs => songs.track);
     APP.buildPlaylist();
     APP.loadCurrentTrack();
     APP.audio.play();
@@ -136,21 +134,18 @@ const APP = {
   },
 
   getAllTimes: () => {
+    
+    
     MEDIA.forEach((track) => {
       let tempAudio = new Audio(`./media/${track.track}`);
       tempAudio.addEventListener('durationchange', (ev) => {
         let duration = ev.target.duration;
         track['duration'] = duration;
         //update the display by finding the playlist item with the matching img src
-        let thumbnails = document.querySelectorAll('.track__item img');
-        thumbnails.forEach((thumb, index) => {
-          if (thumb.src.includes(track.thumbnail)) {
-            //convert the duration in seconds to a 00:00 string
-            let timeString = APP.convertToMinutes(duration);
-            //update the playlist display for the matching item
-            thumb.closest('.track__item').querySelector('time').textContent = timeString;
-          }
-        });
+
+        let timeString = APP.convertToMinutes(duration);
+        document.querySelector(`li[data-src="${track.track}"] time`).textContent = timeString;
+
       });
     });
   },
@@ -158,11 +153,13 @@ const APP = {
   loadCurrentTrack: () => {
     //remove current active class
     const allElements = document.querySelectorAll('li');
+    const tracks = MEDIA.map(songs => songs.track);
+
     allElements.forEach((element) => {
       element.classList.remove('active');
     });
 
-    APP.audio.src = `./media/${APP.tracks[APP.currentTrack]}`;
+    APP.audio.src = `./media/${tracks[APP.currentTrack]}`;
     const albumArt = document.querySelector('.album_art__full');
     const img = albumArt.querySelector('img');
     img.src = `./img/${MEDIA[APP.currentTrack].large}`
